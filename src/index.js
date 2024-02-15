@@ -47,6 +47,7 @@ export async function getSubtitles({
   // * ensure we have found the correct subtitle lang
   if (!subtitle || (subtitle && !subtitle.baseUrl))
     throw new Error(`Could not find ${lang} captions for ${videoID}`);
+  if (subtitle.vssId[0] == 'a') throw new Error(`The ${videoID} caption is an auto-generated caption.`);
 
   const transcript = await fetchData(subtitle.baseUrl);
   const lines = transcript
